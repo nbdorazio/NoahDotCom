@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # basic-webpage/basic-webpage/README.md
 
 # Basic Webpage Project
@@ -35,3 +36,7 @@ To set up and run the webpage, follow these steps:
 ## License
 
 This project is open-source and available under the MIT License.
+=======
+# NoahDotCom
+Personal Website
+>>>>>>> c95f24ee0870c7d29d69b8e43045350cafaeee71
