@@ -1,24 +1,171 @@
+/* General styles */
 body {
     margin: 0;
-    padding: 0;
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
     background-color: black;
     color: white;
-}
-
-header, footer {
-    display: none;
-}
-
-.container {
+  }
+  
+  /* Scrolling banners */
+  .scrolling-banner {
     position: fixed;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    z-index: 1000;
+    padding: 5px 10px;
+  }
+  
+  .scrolling-banner.top {
+    top: 0;
+    left: 0;
     width: 100%;
+    animation: scroll-left-to-right 20s linear infinite;
+  }
+  
+  .scrolling-banner.right {
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    writing-mode: vertical-rl;
+    animation: scroll-top-to-bottom 20s linear infinite;
+  }
+  
+  .scrolling-banner.bottom {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    animation: scroll-right-to-left 20s linear infinite;
+  }
+  
+  .scrolling-banner.left {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 20px;
+    writing-mode: vertical-rl;
+    animation: scroll-bottom-to-top 20s linear infinite;
+  }
+  .flipped-text {
+    transform: rotate(180deg);
+    display: inline-block;
     text-align: center;
-    top: 20px;
-    z-index: 1;
-}
-
-h1 {
-    color: white;
-    font-family: 'Times New Roman', Times, serif, sans-serif;
-    margin: 0;
-}
+  }
+  
+  /* Scrolling animations */
+  @keyframes scroll-left-to-right {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+  
+  @keyframes scroll-right-to-left {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  
+  @keyframes scroll-top-to-bottom {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
+  
+  @keyframes scroll-bottom-to-top {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(-100%);
+    }
+  }
+  
+  /* Grid container setup */
+  .grid-container {
+    display: grid;
+    grid-template-rows: 4fr 1fr;
+    height: 100%;
+    width: 100%;
+    padding-top: 30px; /* Prevent content from touching the banners */
+    padding-bottom: 30px; /* Prevent content from touching the banners */
+    padding-left: 35px; /* fix these two later to make them dynamic */
+    padding-right: 35px;
+    box-sizing: border-box;
+  }
+  
+  /* Central grid content */
+  .content {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0px;
+    grid-row: 1 / 2;
+  }
+  
+  .cell {
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+  
+  /* Footer */
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row: 2 / 3;
+    gap: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  
+  .about-me, .contact, .links {
+    text-align: center;
+    padding: 10px;
+    font-size: 1.5rem;
+    border: 1px solid white;
+  }
+  
+  .about-me {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .link {
+    background: #bbb;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  

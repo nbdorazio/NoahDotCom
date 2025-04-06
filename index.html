@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site in Progress</title>
-    <link rel="stylesheet" href="src/styles/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="src/scripts/sketch.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clockwise Layout</title>
+  <link rel="stylesheet" href="src/styles/style.css" />
+  <script type="module" src="src/scripts/script.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>site in progress. - Noah</h1>
+  <!-- Scrolling banners -->
+  <div class="scrolling-banner top">Scrolling Text</div>
+  <div class="scrolling-banner right">Scrolling Text</div>
+  <div class="scrolling-banner bottom" id="bottom-banner">Scrolling Text</div>
+  <div class="scrolling-banner left">
+    <span class="flipped-text">Scrolling Text</span>
+  </div>
+  <!-- Main grid container -->
+  <div class="grid-container">
+    <div class="content">
+      <div class="cell">1</div>
+      <div class="cell">2</div>
+      <div class="cell">3</div>
+      <div class="cell">4</div>
+      <div class="cell">5</div>
+      <div class="cell">6</div>
+      <div class="cell">7</div>
+      <div class="cell">8</div>
+      <div class="cell">9</div>
+      <div class="cell">10</div>
     </div>
-    <!-- p5.js canvas will automatically be added to the body -->
+
+    <div class="footer">
+      <div class="about-me">About Me</div>
+      <div class="contact">Contact</div>
+      <div class="links">Links</div>
+    </div>
+  </div>
 </body>
 </html>
