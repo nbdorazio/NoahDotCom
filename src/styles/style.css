@@ -23,6 +23,7 @@ body {
   .scrolling-banner.top {
     top: 0;
     left: 0;
+    font-size: 1.8rem;
     width: 100%;
     animation: scroll-left-to-right 20s linear infinite;
   }
@@ -40,12 +41,38 @@ body {
   }
   
   .scrolling-banner.bottom {
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    animation: scroll-right-to-left 20s linear infinite;
+    height: 60px;
+    background: black;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid white;
+    z-index: 1000;
   }
   
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll-marquee 20s linear infinite;
+    --marquee-distance: 1000px; /* default fallback */
+  }
+  
+  .marquee-wrapper {
+    display: flex;
+  }
+  
+  .marquee-content {
+    display: inline-block;
+    padding-right: 2rem;
+    font-size: 1.5rem;
+    color: white;
+    white-space: nowrap;
+  }
+
   .scrolling-banner.left {
     top: 0;
     left: 0;
@@ -70,15 +97,15 @@ body {
     }
   }
   
-  @keyframes scroll-right-to-left {
-    from {
-      transform: translateX(100%);
+  @keyframes scroll-marquee {
+    0% {
+      transform: translateX(0);
     }
-    to {
-      transform: translateX(-100%);
+    100% {
+      transform: translateX(calc(-1 * var(--marquee-distance)));
     }
   }
-  
+
   @keyframes scroll-top-to-bottom {
     from {
       transform: translateY(-100%);
@@ -117,6 +144,8 @@ body {
     grid-template-rows: repeat(2, 1fr);
     gap: 0px;
     grid-row: 1 / 2;
+    padding-top: 22px;
+
   }
   
   .cell {
@@ -135,6 +164,7 @@ body {
     gap: 0px;
     padding: 0px;
     box-sizing: border-box;
+    padding-bottom: 22px;
   }
   
   .about-me, .contact, .links {
