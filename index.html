@@ -3,24 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clockwise Layout</title>
+  <title>Noah's Website</title>
   <link rel="stylesheet" href="src/styles/style.css" />
   <script type="module" src="src/scripts/script.js"></script>
 </head>
 <body>
-  <!-- Scrolling banners -->
-  <div class="scrolling-banner top">Noah Dorazio </div>
-  <div class="scrolling-banner right">Scrolling Text</div>
-  <div class="scrolling-banner bottom">
-    <div class="marquee-track" id="marqueeTrack">
+  <!-- Scrolling banners - all with consistent structure -->
+  <div class="scrolling-banner top">
+    <div class="marquee-track" id="topMarqueeTrack">
       <!-- Marquee content will be injected here -->
     </div>
   </div>
   
-
-  <div class="scrolling-banner left">
-    <span class="flipped-text">Scrolling Text</span>
+  <div class="scrolling-banner right">
+    <div class="marquee-track" id="rightMarqueeTrack">
+      <!-- Marquee content will be injected here -->
+    </div>
   </div>
+  
+  <div class="scrolling-banner bottom">
+    <div class="marquee-track" id="bottomMarqueeTrack">
+      <!-- Marquee content will be injected here -->
+    </div>
+  </div>
+  
+  <div class="scrolling-banner left">
+    <div class="marquee-track" id="leftMarqueeTrack">
+      <!-- Marquee content will be injected here -->
+    </div>
+  </div>
+
   <!-- Main grid container -->
   <div class="grid-container">
     <div class="content">

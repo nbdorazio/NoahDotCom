@@ -1,201 +1,276 @@
 /* General styles */
 body {
-    margin: 0;
-    font-family: 'Times New Roman', Times, serif, sans-serif;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    position: relative;
-    background-color: black;
-    color: white;
-  }
-  
-  /* Scrolling banners */
-  .scrolling-banner {
-    position: fixed;
-    font-size: 1.2rem;
-    white-space: nowrap;
-    overflow: hidden;
-    z-index: 1000;
-    padding: 5px 10px;
-  }
-  
-  .scrolling-banner.top {
-    top: 0;
-    left: 0;
-    font-size: 1.8rem;
-    width: 100%;
-    animation: scroll-left-to-right 20s linear infinite;
-  }
-  
-  .scrolling-banner.right {
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    writing-mode: vertical-rl;
-    animation: scroll-top-to-bottom 20s linear infinite;
-  }
-  
-  .scrolling-banner.bottom {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: black;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    border-top: 1px solid white;
-    z-index: 1000;
-  }
-  
-  .marquee-track {
-    display: flex;
-    white-space: nowrap;
-    animation: scroll-marquee 20s linear infinite;
-    --marquee-distance: 1000px; /* default fallback */
-  }
-  
-  .marquee-wrapper {
-    display: flex;
-  }
-  
-  .marquee-content {
-    display: inline-block;
-    padding-right: 2rem;
-    font-size: 1.5rem;
-    color: white;
-    white-space: nowrap;
-  }
+  margin: 0;
+  font-family: 'Times New Roman', Times, serif, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  background-color: black;
+  color: white;
+}
 
-  .scrolling-banner.left {
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 20px;
-    writing-mode: vertical-rl;
-    animation: scroll-bottom-to-top 20s linear infinite;
-  }
-  .flipped-text {
-    transform: rotate(180deg);
-    display: inline-block;
-    text-align: center;
-  }
-  
-  /* Scrolling animations */
-  @keyframes scroll-left-to-right {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(100%);
-    }
-  }
-  
-  @keyframes scroll-marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-1 * var(--marquee-distance)));
-    }
-  }
+/* Common scrolling banner styles */
+.scrolling-banner {
+  position: fixed;
+  overflow: hidden;
+  z-index: 1000;
+  background-color: black;
+  border: 1px solid white;
+}
 
-  @keyframes scroll-top-to-bottom {
-    from {
-      transform: translateY(-100%);
-    }
-    to {
-      transform: translateY(100%);
-    }
-  }
-  
-  @keyframes scroll-bottom-to-top {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: translateY(-100%);
-    }
-  }
-  
-  /* Grid container setup */
-  .grid-container {
-    display: grid;
-    grid-template-rows: 4fr 1fr;
-    height: 100%;
-    width: 100%;
-    padding-top: 30px; /* Prevent content from touching the banners */
-    padding-bottom: 30px; /* Prevent content from touching the banners */
-    padding-left: 35px; /* fix these two later to make them dynamic */
-    padding-right: 35px;
-    box-sizing: border-box;
-  }
-  
-  /* Central grid content */
-  .content {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 0px;
-    grid-row: 1 / 2;
-    padding-top: 22px;
+/* Top banner */
+.scrolling-banner.top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px; /* Same height as bottom banner */
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid white;
+}
 
+/* Bottom banner */
+.scrolling-banner.bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid white;
+}
+
+/* Right banner - vertical content positioning */
+.scrolling-banner.right {
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 60px; /* Same width as the height of top/bottom banners */
+  display: flex;
+  align-items: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  border-left: 1px solid white;
+}
+
+.scrolling-banner.right .marquee-track {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Left banner - vertical content positioning */
+.scrolling-banner.left {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 60px; /* Same width as the height of top/bottom banners */
+  display: flex;
+  align-items: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  border-right: 1px solid white;
+}
+
+.scrolling-banner.left .marquee-track {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Common marquee styles */
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  --marquee-distance: 1000px; /* default fallback */
+}
+
+/* Direction-specific animations for each banner - adjusted for perceptual uniformity */
+.scrolling-banner.top .marquee-track {
+  /* Animation handled by wrapper */
+  animation: none;
+  position: relative;
+  width: auto;
+  display: flex;
+  overflow: hidden;
+}
+
+.scrolling-banner.top .marquee-wrapper {
+  /* Apply animation to the wrapper instead of the track */
+  display: flex;
+  animation: continuous-scroll-left-to-right 30s linear infinite;
+}
+
+.scrolling-banner.bottom .marquee-track {
+  animation: scroll-marquee-right-to-left 30s linear infinite;
+}
+
+/* Vertical banners need MUCH faster animation to appear at the same speed */
+.scrolling-banner.right .marquee-track {
+  animation: scroll-marquee-top-to-bottom 10s linear infinite;
+}
+
+.scrolling-banner.left .marquee-track {
+  animation: scroll-marquee-bottom-to-top 10s linear infinite;
+}
+
+.marquee-wrapper {
+  display: flex;
+}
+
+.marquee-content {
+  display: inline-block;
+  padding-right: 2rem;
+  font-size: 1.5rem;
+  color: white;
+  white-space: nowrap;
+}
+
+/* The right and left banners need special content styling */
+.scrolling-banner.right .marquee-wrapper,
+.scrolling-banner.left .marquee-wrapper {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.scrolling-banner.right .marquee-content,
+.scrolling-banner.left .marquee-content {
+  padding-bottom: 2rem; /* Use padding-bottom instead of padding-right for vertical text */
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Scrolling animations */
+@keyframes scroll-marquee-right-to-left {
+  0% {
+    transform: translateX(0);
   }
-  
-  .cell {
-    border: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
+  100% {
+    transform: translateX(calc(-1 * var(--marquee-distance)));
   }
-  
-  /* Footer */
-  .footer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-row: 2 / 3;
-    gap: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    padding-bottom: 22px;
+}
+
+@keyframes scroll-marquee-left-to-right {
+  0% {
+    transform: translateX(0);
   }
-  
-  .about-me, .contact, .links {
-    text-align: center;
-    padding: 10px;
-    font-size: 1.5rem;
-    border: 1px solid white;
+  100% {
+    transform: translateX(calc(var(--marquee-distance)));
   }
-  
-  .about-me {
-    display: flex; 
-    justify-content: center;
-    align-items: center;
+}
+
+@keyframes scroll-marquee-top-to-bottom {
+  0% {
+    transform: translateY(0);
   }
-  
-  
-  .contact {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  100% {
+    transform: translateY(calc(-1 * var(--marquee-distance)));
   }
-  
-  .links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+}
+
+@keyframes scroll-marquee-bottom-to-top {
+  0% {
+    transform: translateY(0);
   }
-  
-  .link {
-    background: #bbb;
-    padding: 5px 10px;
-    border-radius: 5px;
+  100% {
+    transform: translateY(calc(-1 * var(--marquee-distance)));
   }
-  
+}
+
+/* Continuous seamless scrolling animation for top banner */
+@keyframes continuous-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Continuous seamless scrolling animation for top banner from left to right */
+@keyframes continuous-scroll-left-to-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Grid container setup - adjusted for new banner sizes */
+.grid-container {
+  display: grid;
+  grid-template-rows: 4fr 1fr;
+  height: 100%;
+  width: 100%;
+  padding-top: 60px; /* Match the top banner height */
+  padding-bottom: 60px; /* Match the bottom banner height */
+  padding-left: 60px; /* Match the left banner width */
+  padding-right: 60px; /* Match the right banner width */
+  box-sizing: border-box;
+}
+
+/* Central grid content */
+.content {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0px;
+  grid-row: 1 / 2;
+  padding-top: 22px;
+}
+
+.cell {
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* Footer */
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-row: 2 / 3;
+  gap: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  padding-bottom: 22px;
+}
+
+.about-me, .contact, .links {
+  text-align: center;
+  padding: 10px;
+  font-size: 1.5rem;
+  border: 1px solid white;
+}
+
+.about-me {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link {
+  background: #bbb;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
