@@ -16,7 +16,6 @@ body {
   overflow: hidden;
   z-index: 1000;
   background-color: black;
-  border: 1px solid white;
 }
 
 /* Top banner */
@@ -24,9 +23,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px; /* Same height as bottom banner */
-  display: flex;
-  align-items: center;
+  height: 60px;
   border-bottom: 1px solid white;
 }
 
@@ -36,173 +33,121 @@ body {
   left: 0;
   width: 100%;
   height: 60px;
-  display: flex;
-  align-items: center;
   border-top: 1px solid white;
 }
 
-/* Right banner - vertical content positioning */
+/* Right banner */
 .scrolling-banner.right {
   top: 0;
   right: 0;
   height: 100%;
-  width: 60px; /* Same width as the height of top/bottom banners */
-  display: flex;
-  align-items: center;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+  width: 60px;
   border-left: 1px solid white;
 }
 
-.scrolling-banner.right .marquee-track {
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Left banner - vertical content positioning */
+/* Left banner */
 .scrolling-banner.left {
   top: 0;
   left: 0;
   height: 100%;
-  width: 60px; /* Same width as the height of top/bottom banners */
-  display: flex;
-  align-items: center;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
+  width: 60px;
   border-right: 1px solid white;
 }
 
-.scrolling-banner.left .marquee-track {
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Common marquee styles */
+/* Marquee container */
 .marquee-track {
-  display: flex;
-  white-space: nowrap;
-  --marquee-distance: 1000px; /* default fallback */
-}
-
-/* Direction-specific animations for each banner - adjusted for perceptual uniformity */
-.scrolling-banner.top .marquee-track {
-  /* Animation handled by wrapper */
-  animation: none;
-  position: relative;
-  width: auto;
-  display: flex;
-  overflow: hidden;
-}
-
-.scrolling-banner.top .marquee-wrapper {
-  /* Apply animation to the wrapper instead of the track */
-  display: flex;
-  animation: continuous-scroll-left-to-right 30s linear infinite;
-}
-
-.scrolling-banner.bottom .marquee-track {
-  animation: scroll-marquee-right-to-left 30s linear infinite;
-}
-
-/* Vertical banners need MUCH faster animation to appear at the same speed */
-.scrolling-banner.right .marquee-track {
-  animation: scroll-marquee-top-to-bottom 10s linear infinite;
-}
-
-.scrolling-banner.left .marquee-track {
-  animation: scroll-marquee-bottom-to-top 10s linear infinite;
-}
-
-.marquee-wrapper {
-  display: flex;
-}
-
-.marquee-content {
-  display: inline-block;
-  padding-right: 2rem;
-  font-size: 1.5rem;
-  color: white;
-  white-space: nowrap;
-}
-
-/* The right and left banners need special content styling */
-.scrolling-banner.right .marquee-wrapper,
-.scrolling-banner.left .marquee-wrapper {
   width: 100%;
-  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
   align-items: center;
 }
 
-.scrolling-banner.right .marquee-content,
-.scrolling-banner.left .marquee-content {
-  padding-bottom: 2rem; /* Use padding-bottom instead of padding-right for vertical text */
-  text-align: center;
+/* Marquee content for different banner directions */
+.marquee-wrapper {
+  position: absolute;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+/* Horizontal banners positioning */
+.left-to-right .marquee-wrapper,
+.right-to-left .marquee-wrapper {
+  left: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+/* Vertical banners positioning */
+.top-to-bottom .marquee-wrapper,
+.bottom-to-top .marquee-wrapper {
+  flex-direction: column;
+  top: 0;
   width: 100%;
   display: flex;
   justify-content: center;
+  height: fit-content;
 }
 
-/* Scrolling animations */
-@keyframes scroll-marquee-right-to-left {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-1 * var(--marquee-distance)));
-  }
+/* Styling for the content */
+.marquee-content {
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 0 20px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
-@keyframes scroll-marquee-left-to-right {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(var(--marquee-distance)));
-  }
+/* Vertical text styling */
+.scrolling-banner.vertical .marquee-content {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  padding: 20px 0;
+  width: 100%;
+  height: auto;
+  min-height: 60px;
 }
 
-@keyframes scroll-marquee-top-to-bottom {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(calc(-1 * var(--marquee-distance)));
-  }
+.left-banner-text {
+  transform: rotate(180deg);
 }
 
-@keyframes scroll-marquee-bottom-to-top {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(calc(-1 * var(--marquee-distance)));
-  }
+/* Animation for horizontal marquees */
+@keyframes scroll-horizontal {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* Continuous seamless scrolling animation for top banner */
-@keyframes continuous-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+/* Animation for vertical marquees */
+@keyframes scroll-vertical {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
 }
 
-/* Continuous seamless scrolling animation for top banner from left to right */
-@keyframes continuous-scroll-left-to-right {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0);
-  }
+/* Apply animations to specific directions */
+.left-to-right .marquee-wrapper {
+  animation: scroll-horizontal var(--scroll-duration, 20s) linear infinite reverse;
 }
 
-/* Grid container setup - adjusted for new banner sizes */
+.right-to-left .marquee-wrapper {
+  animation: scroll-horizontal var(--scroll-duration, 20s) linear infinite;
+}
+
+.top-to-bottom .marquee-wrapper {
+  animation: scroll-vertical var(--scroll-duration, 20s) linear infinite;
+}
+
+.bottom-to-top .marquee-wrapper {
+  animation: scroll-vertical var(--scroll-duration, 20s) linear infinite reverse;
+}
+
+/* Grid container setup */
 .grid-container {
   display: grid;
   grid-template-rows: 4fr 1fr;
@@ -249,22 +194,7 @@ body {
   padding: 10px;
   font-size: 1.5rem;
   border: 1px solid white;
-}
-
-.about-me {
   display: flex; 
-  justify-content: center;
-  align-items: center;
-}
-
-.contact {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.links {
-  display: flex;
   justify-content: center;
   align-items: center;
 }

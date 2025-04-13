@@ -1,119 +1,191 @@
 /**
- * Updates a single banner with the provided text
- * @param {string} bannerId - The ID of the marquee track element
- * @param {string} text - The text to display
- * @param {string} direction - The scrolling direction ('horizontal' or 'vertical')
+ * Improved Infinite Scrolling Banners with Centered Text
+ * This script creates infinite marquees for all four sides of the screen
+ * with properly centered text in each banner.
  */
-function updateSingleMarquee(bannerId, text, direction = 'horizontal') {
-    const track = document.getElementById(bannerId);
-    if (!track) return;
+
+// Banner configuration
+const bannerConfig = {
+  top: {
+    id: 'topMarqueeTrack',
+    text: "Noah Dorazio",
+    direction: "left-to-right",
+    speed: 80,
+    isVertical: false
+  },
+  right: {
+    id: 'rightMarqueeTrack',
+    text: "Welcome to my portfolio • Projects • Skills • Experience • Contact",
+    direction: "bottom-to-top", 
+    speed: 80,
+    isVertical: true
+  },
+  bottom: {
+    id: 'bottomMarqueeTrack',
+    text: "Now Playing: Waiting for song info...",
+    direction: "right-to-left",
+    speed: 80,
+    isVertical: false
+  },
+  left: {
+    id: 'leftMarqueeTrack',
+    text: "Web Development • Design • Programming • Creative Coding",
+    direction: "top-to-bottom",
+    speed: 80,
+    isVertical: true
+  }
+};
+
+/**
+ * Creates the marquee content with centered text and seamless infinite scrolling
+ * @param {string} bannerId - The ID of the marquee track
+ * @param {string} text - The text content to display
+ * @param {string} direction - Scroll direction
+ * @param {number} speed - Animation duration in seconds
+ * @param {boolean} isVertical - Whether this is a vertical banner
+ */
+function createMarqueeContent(bannerId, text, direction, speed, isVertical) {
+  const track = document.getElementById(bannerId);
+  if (!track) return;
   
-    // Clear old content
-    track.innerHTML = '';
+  // Clear existing content
+  track.innerHTML = '';
   
-    // Create wrapper to hold duplicated content
-    const wrapper = document.createElement('div');
-    wrapper.className = 'marquee-wrapper';
+  // Add direction class to the parent banner
+  const banner = track.closest('.scrolling-banner');
+  if (banner) {
+    // Remove existing direction classes
+    banner.classList.remove('left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top', 'vertical');
+    // Add new classes
+    banner.classList.add(direction);
+    if (isVertical) {
+      banner.classList.add('vertical');
+    }
+  }
+  
+  // Create wrapper for content
+  const wrapper = document.createElement('div');
+  wrapper.className = 'marquee-wrapper';
+  wrapper.style.setProperty('--scroll-duration', `${speed}s`);
+  
+  // Get screen dimensions
+  const screenSize = isVertical ? window.innerHeight : window.innerWidth;
+  
+  // First, create one content element to measure its size
+  const sampleContent = document.createElement('div');
+  sampleContent.className = 'marquee-content';
+  
+  if (isVertical) {
+    sampleContent.classList.add('vertical-text');
+    if (bannerId === 'leftMarqueeTrack') {
+      sampleContent.classList.add('left-banner-text');
+    }
+  }
+  
+  sampleContent.textContent = text;
+  
+  // Temporarily add to the DOM to measure
+  wrapper.appendChild(sampleContent);
+  track.appendChild(wrapper);
+  
+  // Measure the size of one content element
+  const contentSize = isVertical ? sampleContent.offsetHeight : sampleContent.offsetWidth;
+  
+  // Calculate how many copies needed to fill at least twice the screen
+  // This ensures seamless looping and no gaps
+  const copiesNeeded = Math.max(10, Math.ceil((screenSize * 2) / contentSize) + 4);
+  
+  // Remove the sample content - we'll recreate everything
+  track.innerHTML = '';
+  wrapper.innerHTML = '';
+  
+  // Create all content elements
+  for (let i = 0; i < copiesNeeded; i++) {
+    const content = document.createElement('div');
+    content.className = 'marquee-content';
     
-    // Special handling for top banner to create true infinite scroll
-    if (bannerId === 'topMarqueeTrack') {
-      // For infinite scrolling, we need to duplicate the content exactly once
-      // Create the first set of content items
-      const contentGroup = document.createElement('div');
-      contentGroup.className = 'content-group';
-      contentGroup.style.display = 'flex';
-      
-      // Create enough copies to fill more than the screen width
-      const screenWidth = window.innerWidth;
-      const charWidth = 20; // Estimated width per character
-      const estimatedItemWidth = text.length * charWidth;
-      const copiesNeeded = Math.ceil((screenWidth * 2) / estimatedItemWidth) + 2;
-      
-      for (let i = 0; i < copiesNeeded; i++) {
-        const contentItem = document.createElement('div');
-        contentItem.className = 'marquee-content';
-        contentItem.textContent = text;
-        contentItem.style.paddingRight = '4rem';
-        contentGroup.appendChild(contentItem);
-      }
-      
-      // Add the first group to the wrapper
-      wrapper.appendChild(contentGroup);
-      
-      // Clone the content for the second half (needed for seamless loop)
-      const contentGroupClone = contentGroup.cloneNode(true);
-      wrapper.appendChild(contentGroupClone);
-      
-    } else {
-      // For other banners, continue with the original approach
-      // Calculate how many duplicates we need based on screen dimensions
-      const screenDimension = direction === 'horizontal' ? window.innerWidth : window.innerHeight;
-      const charWidth = direction === 'horizontal' ? 12 : 16; 
-      const estimatedItemLength = text.length * charWidth;
-      const copiesNeeded = Math.ceil((screenDimension * 2) / estimatedItemLength) + 1;
-      
-      // Create multiple copies of the content to ensure no gaps
-      for (let i = 0; i < copiesNeeded; i++) {
-        const contentItem = document.createElement('div');
-        contentItem.className = 'marquee-content';
-        contentItem.textContent = text;
-        wrapper.appendChild(contentItem);
+    if (isVertical) {
+      content.classList.add('vertical-text');
+      if (bannerId === 'leftMarqueeTrack') {
+        content.classList.add('left-banner-text');
       }
     }
     
-    track.appendChild(wrapper);
-  
-    // Wait for DOM to paint, then set animation distance
-    requestAnimationFrame(() => {
-      if (bannerId !== 'topMarqueeTrack') {
-        // Only set marquee distance for non-top banners
-        const contentItem = track.querySelector('.marquee-content');
-        const contentSize = direction === 'horizontal' 
-          ? contentItem.offsetWidth 
-          : contentItem.offsetHeight;
-        
-        track.style.setProperty('--marquee-distance', `${contentSize}px`);
-        
-        // IMPORTANT: Do NOT set animation duration here
-        // This ensures CSS hardcoded animation durations take precedence
-      }
-    });
+    content.textContent = text;
+    wrapper.appendChild(content);
   }
   
-  /**
-   * Update the bottom marquee (legacy function for compatibility)
-   */
-  export function updateMarquee(text) {
-    updateSingleMarquee('bottomMarqueeTrack', text, 'horizontal');
-  }
+  // Create duplicate set for seamless looping
+  const contentElements = Array.from(wrapper.children);
+  contentElements.forEach(element => {
+    const clone = element.cloneNode(true);
+    wrapper.appendChild(clone);
+  });
   
-  /**
-   * Initialize all banners with their default text
-   */
-  export function initAllBanners() {
-    // Top banner - horizontal scroll right to left
-    updateSingleMarquee('topMarqueeTrack', 'Noah Dorazio', 'horizontal');
-    
-    // Right banner - vertical scroll from bottom to top
-    updateSingleMarquee('rightMarqueeTrack', 'Welcome to my website', 'vertical');
-    
-    // Bottom banner - horizontal scroll right to left
-    updateMarquee('Now Playing: Waiting for song info...');
-    
-    // Left banner - vertical scroll from top to bottom
-    updateSingleMarquee('leftMarqueeTrack', 'Web Developer & Designer', 'vertical');
-    
-    // Set up resize handler
-    window.addEventListener('resize', () => {
-      // Reinitialize all banners on resize to adjust for new screen dimensions
-      updateSingleMarquee('topMarqueeTrack', 'Noah Dorazio', 'horizontal');
-      updateSingleMarquee('rightMarqueeTrack', 'Welcome to my website', 'vertical');
-      
-      const currentBottomText = document.querySelector('#bottomMarqueeTrack .marquee-content')?.textContent || '';
-      if (currentBottomText) {
-        updateMarquee(currentBottomText);
-      }
-      
-      updateSingleMarquee('leftMarqueeTrack', 'Web Developer & Designer', 'vertical');
-    });
-  }
+  // Add to DOM
+  track.appendChild(wrapper);
+}
+
+/**
+ * Updates a single banner with new text
+ * @param {string} position - 'top', 'right', 'bottom', or 'left'
+ * @param {string} text - New text content
+ */
+function updateBannerText(position, text) {
+  const config = bannerConfig[position];
+  if (!config) return;
+  
+  // Update config
+  config.text = text;
+  
+  // Recreate the banner content
+  createMarqueeContent(
+    config.id,
+    text,
+    config.direction,
+    config.speed,
+    config.isVertical
+  );
+}
+
+/**
+ * Legacy function to update bottom marquee for compatibility
+ * @param {string} text - New text content for bottom banner
+ */
+export function updateMarquee(text) {
+  updateBannerText('bottom', text);
+}
+
+/**
+ * Initialize all banners
+ */
+export function initAllBanners() {
+  // Initialize each banner
+  Object.entries(bannerConfig).forEach(([position, config]) => {
+    createMarqueeContent(
+      config.id,
+      config.text,
+      config.direction,
+      config.speed,
+      config.isVertical
+    );
+  });
+  
+  // Set up window resize handler with debounce
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      // Reinitialize all banners on resize
+      Object.entries(bannerConfig).forEach(([position, config]) => {
+        createMarqueeContent(
+          config.id,
+          config.text,
+          config.direction,
+          config.speed,
+          config.isVertical
+        );
+      });
+    }, 200); // Wait 200ms after resize ends before reinitializing
+  });
+}
