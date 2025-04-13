@@ -14,7 +14,6 @@ body {
 .scrolling-banner {
   position: fixed;
   overflow: hidden;
-  z-index: 1000;
   background-color: black;
 }
 
@@ -25,6 +24,13 @@ body {
   width: 100%;
   height: 60px;
   border-bottom: 1px solid white;
+  z-index: 1002; /* Top banner needs to be above left banner at top-left corner */
+}
+
+/* Custom styling for the top banner text */
+.scrolling-banner.top .marquee-content {
+  font-size: 2.5rem;  /* Adjust this value to change the size */
+  font-weight: bold;  /* Makes the text bold */
 }
 
 /* Bottom banner */
@@ -34,6 +40,7 @@ body {
   width: 100%;
   height: 60px;
   border-top: 1px solid white;
+  z-index: 1003; /* Bottom banner needs to be above right banner at bottom-right corner */
 }
 
 /* Right banner */
@@ -43,6 +50,7 @@ body {
   height: 100%;
   width: 60px;
   border-left: 1px solid white;
+  z-index: 1001; /* Right banner needs to be below the bottom banner at bottom-right corner */
 }
 
 /* Left banner */
@@ -52,6 +60,7 @@ body {
   height: 100%;
   width: 60px;
   border-right: 1px solid white;
+  z-index: 1000; /* Left banner needs to be below the bottom banner at bottom-left corner */
 }
 
 /* Marquee container */
