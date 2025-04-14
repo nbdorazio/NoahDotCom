@@ -15,7 +15,7 @@ const bannerConfig = {
   },
   right: {
     id: 'rightMarqueeTrack',
-    text: "Welcome to my portfolio • Projects • Skills • Experience • Contact",
+    text: "there will be lots of stuff about my life, live",
     direction: "bottom-to-top", 
     speed: 80,
     isVertical: true
@@ -29,7 +29,7 @@ const bannerConfig = {
   },
   left: {
     id: 'leftMarqueeTrack',
-    text: "Web Development • Design • Programming • Creative Coding",
+    text: "facts about me eventually, use your imagination pls",
     direction: "top-to-bottom",
     speed: 80,
     isVertical: true
