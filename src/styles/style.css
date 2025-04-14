@@ -216,6 +216,18 @@ body {
   font-weight: bold;
 }
 
+/* Style for images in grid cells */
+.cell img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
 /* Footer section */
 .footer {
   display: grid;
