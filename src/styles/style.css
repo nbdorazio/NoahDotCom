@@ -329,3 +329,139 @@ body {
     grid-template-rows: repeat(3, 1fr);
   }
 }
+/* Additional styles for project pages */
+
+/* Additional styles for project pages */
+
+/* Image container and styling - ONLY adds image functionality without changing layout */
+.cell-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cell-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+/* Make grid cells look clickable without changing structure */
+.cell.clickable {
+  cursor: pointer;
+  position: relative; /* Keep original positioning */
+  transition: all 0.3s ease;
+}
+
+/* Subtle shrink effect on hover */
+.cell.clickable:hover {
+  transform: scale(0.98);
+}
+
+.cell.clickable:hover .cell-image {
+  filter: brightness(0.85);
+}
+
+/* Project page container */
+.project-view {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: black;
+  color: white;
+  padding: 20px;
+}
+
+.project-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.project-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.project-container h2 {
+  font-size: 1.8rem;
+  margin: 1.5rem 0 0.8rem 0;
+}
+
+.project-container p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.project-details {
+  margin: 2rem 0;
+}
+
+.project-details ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+}
+
+.project-details li {
+  margin-bottom: 0.5rem;
+}
+
+/* Demo container for project demos */
+.demo-container {
+  width: 100%;
+  height: 400px;
+  background-color: #111;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Back button styling */
+.back-button {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.back-button:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Ensure p5 canvas is responsive */
+#p5-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Scrollbar styling for project pages */
+.project-view::-webkit-scrollbar {
+  width: 8px;
+}
+
+.project-view::-webkit-scrollbar-track {
+  background: #111;
+}
+
+.project-view::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+.project-view::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
