@@ -3,43 +3,68 @@
 // Import the banner and Roon functionality
 import { initRoonNowPlaying } from './roon.js';
 import { updateMarquee, initAllBanners } from './banners.js';
+// Import the gallery module
+import { createGallery } from './gallery.js';
 
 // Project data - you can expand this with your actual projects
 const projects = [
   {
     id: 1,
-    title: "Interactive Animation",
-    description: "A creative coding project using P5.js with dynamic animations.",
-    image: "src/images/Harby1.jpg", // Placeholder image - replace with your actual image path
+    title: "Remote Control Sphere Robot",
+    description: "An innovative robotics project featuring a spherical design with remote control capabilities.",
+    image: "src/images/Harby1.jpg",
+    gallery: [
+      { src: "src/images/HarbyFinals/538A9139.jpg", caption: "Sphere Bot with blocks" },
+      { src: "src/images/Harby2.jpg", caption: "Robotic sphere in action" },
+      { src: "/api/placeholder/800/600?text=Robot+View+3", caption: "Close-up of control mechanism" },
+      { src: "/api/placeholder/800/600?text=Technical+Diagram", caption: "Technical schematic of robot design" }
+    ],
     content: `
       <div class="project-container">
         <h1>Remote Control Sphere Robot</h1>
-        <p>This project demonstrates creative coding techniques using P5.js.</p>
-        <div id="p5-container" class="demo-container"></div>
+        <p>An innovative robotics project featuring a spherical design with remote control capabilities.</p>
+        
+        <!-- Gallery placeholder -->
+        <div class="gallery-container-placeholder"></div>
+        
         <div class="project-details">
           <h2>About this project</h2>
-          <p>This animation uses parametric equations to create dynamic motion patterns with color changes based on proximity.</p>
+          <p>This spherical robot uses an innovative propulsion system that allows for smooth movement across various surfaces. The design incorporates balance mechanisms that enable precise control and stability.</p>
+          
           <h2>Technologies used</h2>
           <ul>
-            <li>P5.js</li>
-            <li>JavaScript</li>
-            <li>HTML Canvas</li>
+            <li>Arduino microcontroller</li>
+            <li>Custom PCB design</li>
+            <li>3D printed chassis components</li>
+            <li>Wireless communication module</li>
+            <li>Gyroscopic stabilization</li>
           </ul>
         </div>
         <button class="back-button">Back to projects</button>
       </div>
     `,
-    script: 'loadSketch' // Function to call when this project is displayed
+    script: null
   },
   {
     id: 2,
     title: "Music Integration",
     description: "Integration with Roon music API to display currently playing tracks.",
     image: "/api/placeholder/600/400", // Placeholder image - replace with your actual image path
+    gallery: [
+      { src: "/api/placeholder/800/600?text=Roon+Integration", caption: "Firebase integration with Roon API" },
+      { src: "/api/placeholder/800/600?text=Now+Playing", caption: "Example of now playing status" },
+      { src: "/api/placeholder/800/600?text=Firebase+Console", caption: "Database configuration" },
+      { src: "/api/placeholder/800/600?text=Code+Sample+1", caption: "Real-time database listeners" },
+      { src: "/api/placeholder/800/600?text=Code+Sample+2", caption: "Marquee update function" }
+    ],
     content: `
       <div class="project-container">
         <h1>Music Integration</h1>
         <p>Real-time music tracking integration with Roon API.</p>
+        
+        <!-- Gallery placeholder -->
+        <div class="gallery-container-placeholder"></div>
+        
         <div class="project-details">
           <h2>About this project</h2>
           <p>This project connects to a Firebase database that receives updates from Roon, a high-fidelity music system. The currently playing track is displayed in the bottom banner of the website.</p>
@@ -61,10 +86,20 @@ const projects = [
     title: "Responsive Design",
     description: "A responsive web design showcase with dynamic layout changes.",
     image: "/api/placeholder/600/400", // Placeholder image - replace with your actual image path
+    gallery: [
+      { src: "/api/placeholder/800/600?text=Desktop+View", caption: "Desktop layout with full grid" },
+      { src: "/api/placeholder/800/600?text=Tablet+View", caption: "Tablet view with adjusted columns" },
+      { src: "/api/placeholder/800/600?text=Mobile+View", caption: "Mobile view with single column" },
+      { src: "/api/placeholder/800/600?text=Ultrawide+View", caption: "Ultrawide screen adaptation" }
+    ],
     content: `
       <div class="project-container">
         <h1>Responsive Design</h1>
         <p>Adaptive layouts for various screen sizes and orientations.</p>
+        
+        <!-- Gallery placeholder -->
+        <div class="gallery-container-placeholder"></div>
+        
         <div class="project-details">
           <h2>About this project</h2>
           <p>This project demonstrates responsive web design principles, with layouts that adapt to different screen sizes from mobile to ultra-wide displays.</p>
@@ -91,10 +126,19 @@ for (let i = 4; i <= 10; i++) {
       title: `Project ${i}`,
       description: `Description for Project ${i}`,
       image: `/api/placeholder/600/400?text=Project+${i}`, // Placeholder with project number
+      gallery: [
+        { src: `/api/placeholder/800/600?text=Project+${i}+Image+1`, caption: `First image for Project ${i}` },
+        { src: `/api/placeholder/800/600?text=Project+${i}+Image+2`, caption: `Second image for Project ${i}` },
+        { src: `/api/placeholder/800/600?text=Project+${i}+Image+3`, caption: `Third image for Project ${i}` }
+      ],
       content: `
         <div class="project-container">
           <h1>Project ${i}</h1>
           <p>This is a placeholder for Project ${i}.</p>
+          
+          <!-- Gallery placeholder -->
+          <div class="gallery-container-placeholder"></div>
+          
           <div class="project-details">
             <h2>About this project</h2>
             <p>Project details will go here.</p>
@@ -197,6 +241,17 @@ function openProject(projectId) {
   projectContentEl.className = 'project-view';
   projectContentEl.innerHTML = project.content;
   gridContainer.appendChild(projectContentEl);
+  
+  // Initialize gallery if the project has gallery images
+  if (project.gallery && project.gallery.length > 0) {
+    // Find the gallery container in the project content
+    const galleryContainer = projectContentEl.querySelector('.gallery-container-placeholder');
+    if (galleryContainer) {
+      galleryContainer.id = `gallery-${projectId}`;
+      // Create the gallery with the specified images
+      createGallery(`gallery-${projectId}`, project.gallery);
+    }
+  }
   
   // Run project-specific script if specified
   if (project.script && typeof window[project.script] === 'function') {
