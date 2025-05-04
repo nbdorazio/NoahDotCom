@@ -465,7 +465,7 @@ body {
 .project-view::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-/* Image Gallery Styles */
+/* Gallery Styles with Video Support */
 .gallery-container {
   width: 100%;
   margin: 20px 0;
@@ -473,7 +473,7 @@ body {
   padding-bottom: 10px;
 }
 
-.gallery-main-image {
+.gallery-main-media {
   width: 100%;
   height: auto;
   min-height: 300px;
@@ -486,11 +486,17 @@ body {
   margin-bottom: 10px;
 }
 
-.gallery-main-image img {
+.gallery-main-media img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
+}
+
+.gallery-main-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .gallery-strip {
@@ -500,21 +506,44 @@ body {
   gap: 10px;
 }
 
-.gallery-thumbnail {
+.gallery-thumbnail-container {
+  position: relative;
   width: 100px;
   height: 70px;
-  object-fit: cover;
   cursor: pointer;
   border: 2px solid transparent;
   transition: all 0.2s ease;
 }
 
-.gallery-thumbnail.active {
+.gallery-thumbnail-container.active {
   border-color: white;
 }
 
-.gallery-thumbnail:hover {
+.gallery-thumbnail-container:hover {
   border-color: rgba(255, 255, 255, 0.5);
+}
+
+.gallery-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-video-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  pointer-events: none;
 }
 
 .gallery-caption {
@@ -524,14 +553,25 @@ body {
   text-align: center;
 }
 
+/* Custom video controls styling */
+.gallery-main-media video::-webkit-media-controls-panel {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
-  .gallery-main-image {
+  .gallery-main-media {
     min-height: 200px;
   }
   
-  .gallery-thumbnail {
+  .gallery-thumbnail-container {
     width: 80px;
     height: 60px;
+  }
+  
+  .gallery-video-indicator {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
   }
 }

@@ -16,40 +16,57 @@ const projects = [
     gallery: [
       { src: "src/images/HarbyFinals/538A9139.jpg", caption: "Sphere Bot with blocks" },
       { src: "src/images/Harby2.jpg", caption: "Robotic sphere in action" },
-      { src: "/api/placeholder/800/600?text=Robot+View+3", caption: "Close-up of control mechanism" },
-      { src: "/api/placeholder/800/600?text=Technical+Diagram", caption: "Technical schematic of robot design" }
-    ],
-    content: `
-      <div class="project-container">
-        <h1>Remote Control Sphere Robot</h1>
-        <p>An innovative robotics project featuring a spherical design with remote control capabilities.</p>
-        
-        <!-- Gallery placeholder -->
-        <div class="gallery-container-placeholder"></div>
-        
-        <div class="project-details">
-          <h2>About this project</h2>
-          <p>This spherical robot uses an innovative propulsion system that allows for smooth movement across various surfaces. The design incorporates balance mechanisms that enable precise control and stability.</p>
+      { src: "src/images/HarbyFinals/IMG_0587 (1).MOV", caption: "Close-up of control mechanism" },
+      { src: "/api/placeholder/800/600?text=Technical+Diagram", caption: "Technical schematic of robot design" },
+      {
+        type: 'video',
+        src: 'src/images/HarbyFinals/IMG_0587 (1).MOV',
+        thumbnail: 'src/images/HarbyFinals/538A9139.jpg', // Use an existing image as thumbnail
+        caption: 'Video demonstration of the animation',
+        videoType: 'video/mp4', // Try a more widely supported format if MOV doesn't work
+         // Use an existing image as poster
+          aspectRatio: '16:9',
+              },
+              {
+          type: '3d-model',
+          modelPath: 'src/images/HarbyFinals/MasterControl.stl',
+          caption: 'Stone Animal Head 3D Model',
+          thumbnail: 'src/images/HarbyFinals/538A9139.jpg', // Using existing image as thumbnail
+          color: 0x4287f5,  // Blue color in hex format
+          autoRotate: false  // Optional auto-rotation
+              }
+            ],
+            content: `
+              <div class="project-container">
+          <h1>Remote Control Sphere Robot</h1>
+          <p>An innovative robotics project featuring a spherical design with remote control capabilities.</p>
           
-          <h2>Technologies used</h2>
-          <ul>
-            <li>Arduino microcontroller</li>
-            <li>Custom PCB design</li>
-            <li>3D printed chassis components</li>
-            <li>Wireless communication module</li>
-            <li>Gyroscopic stabilization</li>
-          </ul>
-        </div>
-        <button class="back-button">Back to projects</button>
-      </div>
-    `,
-    script: null
-  },
-  {
-    id: 2,
-    title: "Music Integration",
-    description: "Integration with Roon music API to display currently playing tracks.",
-    image: "/api/placeholder/600/400", // Placeholder image - replace with your actual image path
+          <!-- Gallery placeholder -->
+          <div class="gallery-container-placeholder"></div>
+          
+          <div class="project-details">
+            <h2>About this project</h2>
+            <p>This spherical robot uses an innovative propulsion system that allows for smooth movement across various surfaces. The design incorporates balance mechanisms that enable precise control and stability.</p>
+            
+            <h2>Technologies used</h2>
+            <ul>
+              <li>Arduino microcontroller</li>
+              <li>Custom PCB design</li>
+              <li>3D printed chassis components</li>
+              <li>Wireless communication module</li>
+              <li>Gyroscopic stabilization</li>
+            </ul>
+          </div>
+          <button class="back-button">Back to projects</button>
+              </div>
+            `,
+            script: null
+          },
+          {
+            id: 2,
+            title: "Music Integration",
+            description: "Integration with Roon music API to display currently playing tracks.",
+            image: "/api/placeholder/600/400", // Placeholder image - replace with your actual image path
     gallery: [
       { src: "/api/placeholder/800/600?text=Roon+Integration", caption: "Firebase integration with Roon API" },
       { src: "/api/placeholder/800/600?text=Now+Playing", caption: "Example of now playing status" },
