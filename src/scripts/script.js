@@ -65,7 +65,7 @@ const projects = [
             id: 2,
             title: "Music Integration",
             description: "Integration with Roon music API to display currently playing tracks.",
-            image: "/api/placeholder/600/400", // Placeholder image - replace with your actual image path
+            image: "src/images/HarbyFinals/538A9179.jpg", // Placeholder image - replace with your actual image path
     gallery: [
       { src: "/api/placeholder/800/600?text=Roon+Integration", caption: "Firebase integration with Roon API" },
       { src: "/api/placeholder/800/600?text=Now+Playing", caption: "Example of now playing status" },
@@ -101,7 +101,7 @@ const projects = [
     id: 3,
     title: "Responsive Design",
     description: "A responsive web design showcase with dynamic layout changes.",
-    image: "/api/placeholder/600/400", // Placeholder image - replace with your actual image path
+    image: "src/images/teef.jpg", // Placeholder image - replace with your actual image path
     gallery: [
       { src: "/api/placeholder/800/600?text=Desktop+View", caption: "Desktop layout with full grid" },
       { src: "/api/placeholder/800/600?text=Tablet+View", caption: "Tablet view with adjusted columns" },
@@ -190,6 +190,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize the grid cells
   initializeGrid();
+  
+  // Add email copy functionality
+  setupEmailCopy();
 });
 
 // Set up the grid cells with click handlers
@@ -366,3 +369,29 @@ window.loadSketch = function() {
     };
   }, canvas.id);
 };
+
+// Add this new function to your file
+function setupEmailCopy() {
+  const emailElement = document.getElementById('email-copy');
+  if (emailElement) {
+    emailElement.style.cursor = 'pointer';
+    
+    emailElement.addEventListener('click', () => {
+      const email = emailElement.textContent.trim();
+      navigator.clipboard.writeText(email)
+        .then(() => {
+          // Show "Copied!" feedback
+          const originalText = emailElement.innerHTML;
+          emailElement.innerHTML = 'Copied! :)';
+          
+          // Restore original text after 2 seconds
+          setTimeout(() => {
+            emailElement.innerHTML = originalText;
+          }, 1000);
+        })
+        .catch(err => {
+          console.error('Could not copy text: ', err);
+        });
+    });
+  }
+}
