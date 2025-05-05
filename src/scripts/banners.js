@@ -155,7 +155,7 @@ function updateBannerText(position, text) {
 export function updateMarquee(text) {
   updateBannerText('bottom', text);
 }
-
+export { updateBannerText };
 /**
  * Initialize all banners
  */

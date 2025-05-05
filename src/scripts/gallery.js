@@ -231,7 +231,7 @@ export function createGallery(containerId, media) {
     function loadSTLModel(container, modelData) {
       // Create scene, camera, renderer
       const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x111111);
+      scene.background = new THREE.Color(0x000000); // Changed from 0x111111 to 0x000000 (pure black)
       
       const camera = new THREE.PerspectiveCamera(
         75, 

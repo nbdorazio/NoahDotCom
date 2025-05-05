@@ -2,10 +2,10 @@
 
 // Import the banner and Roon functionality
 import { initRoonNowPlaying } from './roon.js';
-import { updateMarquee, initAllBanners } from './banners.js';
+import { updateMarquee, initAllBanners, updateBannerText } from './banners.js';
 // Import the gallery module
 import { createGallery } from './gallery.js';
-
+import { initDeskStatus } from './desk-status-web.js';
 // Project data - you can expand this with your actual projects
 const projects = [
   {
@@ -16,8 +16,7 @@ const projects = [
     gallery: [
       { src: "src/images/HarbyFinals/538A9139.jpg", caption: "Sphere Bot with blocks" },
       { src: "src/images/Harby2.jpg", caption: "Robotic sphere in action" },
-      { src: "src/images/HarbyFinals/IMG_0587 (1).MOV", caption: "Close-up of control mechanism" },
-      { src: "/api/placeholder/800/600?text=Technical+Diagram", caption: "Technical schematic of robot design" },
+  
       {
         type: 'video',
         src: 'src/images/HarbyFinals/IMG_0587 (1).MOV',
@@ -177,6 +176,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Start Firebase now-playing listener (only affects bottom banner)
   initRoonNowPlaying(updateMarquee);
+
+  const updateRightBanner = (text) => {
+    console.log('Updating right banner to:', text);
+    // Import updateBannerText at the top of your file
+    updateBannerText('right', text);
+  };
+    // Initialize desk status monitoring (affects right banner)
+    initDeskStatus(updateRightBanner);
 
   // Initialize the grid cells
   initializeGrid();
