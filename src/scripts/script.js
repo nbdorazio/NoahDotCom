@@ -185,6 +185,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize desk status monitoring (affects right banner)
     initDeskStatus(updateRightBanner);
 
+  // Add just this one line to update left banner with sleep info
+  updateBannerText('left', 'Noah slept 5 hours last night');
+
   // Initialize the grid cells
   initializeGrid();
 });
